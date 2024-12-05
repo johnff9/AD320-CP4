@@ -208,3 +208,34 @@ footer p {
   }
 }
 
+/* Navbar */
+
+nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1f2d2d;
+  padding: 20px 50px;
+}
+
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#navbar li{
+  list-style: none;
+  padding: 0 20px;
+  position: relative;
+}
+
+#navbar li a{
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+}
+
+#navbar li a:hover{
+  color: #669999
+}

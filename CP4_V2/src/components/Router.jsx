@@ -11,7 +11,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Login />} />  {/* Root route for App */}
         <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/home" element={<App />} />
+        <Route path="/home/*" element={<App />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<h2>404 - Page Not Found</h2>} />
       </Routes>
