@@ -11,7 +11,6 @@ const Cart = ({addItem}) => {
   );
 };
 
-
 Cart.propTypes = {
   addItem: PropTypes.func,
 };
