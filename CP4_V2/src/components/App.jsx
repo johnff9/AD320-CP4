@@ -1,20 +1,25 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ProductList from './ProductList';
-import ProductDetail from './ProductDetail';
 import AdminNavBar from './AdminNavBar'; 
 import Cart from './Cart';
+import Login from './Login'
+
+
 
 const App = () => {
   return (
-    <div>
-      <AdminNavBar />
+  <>
+    <AdminNavBar />
+    <div className='pages'>
       <Routes>
-        <Route path="/" element={<ProductList />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/" element={<Login />} />  {/* Root route for App */}
+        <Route path="/home/*" element={<App />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="*" element={<h2>404 - Page Not Found</h2>} />
       </Routes>
     </div>
+  </>
   );
 };
 
