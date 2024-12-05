@@ -2,13 +2,13 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ProductList from './ProductList';
 import ProductDetail from './ProductDetail';
-import NavBar from './NavBar'; 
+import AdminNavBar from './AdminNavBar'; 
 import Cart from './Cart';
 
 const App = () => {
   return (
     <div>
-      <NavBar />
+      <AdminNavBar />
       <Routes>
         <Route path="/" element={<ProductList />} />
         <Route path="/product/:id" element={<ProductDetail />} />
