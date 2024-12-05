@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import Products from "../Products";
 
 const ProductDetail = () => {
   const { id } = useParams(); // Get the product ID from the URL
