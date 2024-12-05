@@ -20,28 +20,34 @@ h1 {
 
 /* Navigation */
 nav {
-  background-color: #333;
-  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1f2d2d; /* Consistent navbar color */
+  padding: 20px 50px;
 }
 
-nav ul {
-  list-style-type: none;
+#navbar {
   display: flex;
+  align-items: center;
   justify-content: center;
 }
 
-nav ul li {
-  margin: 0 15px;
+#navbar li {
+  list-style: none;
+  padding: 0 20px;
+  position: relative;
 }
 
-nav ul li a {
+#navbar li a {
+  font-size: 1.3rem;
+  font-weight: 600;
   color: white;
   text-decoration: none;
-  font-size: 18px;
 }
 
-nav ul li a:hover {
-  text-decoration: underline;
+#navbar li a:hover {
+  color: #669999;
 }
 
 /* Product List */
@@ -74,17 +80,17 @@ nav ul li a:hover {
   background-color: #f9f9f9;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
 }
 
 .product-box:hover {
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
-  transition: all 0.2s ease-in-out;
 }
 
 .product-name {
   font-weight: bold;
-  color: #FF6F61; /* Vibrant candy-like color */
+  color: #FF6F61;
   font-size: 1.2rem;
   margin-bottom: 10px;
 }
@@ -102,23 +108,27 @@ nav ul li a:hover {
 }
 
 .product-image {
-  width: 150px;             /* Set the desired width */
-  height: 150px;            /* Set the desired height */
-  object-fit: cover;      /* Ensures the whole image fits without being cut */
-  /* border-radius: 8px;       Optional: Add rounded corners */
-  /* border: 1px solid #ccc;   Optional: Add a border for styling */
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin: 10px auto;
 }
 
 /* Cart Container */
 .cart-container {
-  max-width: 600px;
-  width: 90%; /* Responsive width */
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the form horizontally */
+  justify-content: center; /* Centers the form vertically */
+  max-width: 600px; /* Optional: Limits the maximum width of the container */
+  width: 90%; /* Adjusts the container width responsively */
+  padding: 20px; /* Adds padding around the form */
   border: 2px solid #FF6F61; /* Candy-themed border color */
   border-radius: 8px;
   background-color: #fffbea; /* Soft candy-like background */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  margin: 50px auto; /* Centers the form horizontally with margin on top and bottom */
 }
 
 /* Heading */
@@ -138,8 +148,10 @@ nav ul li a:hover {
 }
 
 .cart-container input[type="text"],
-.cart-container input[type="number"] {
-  width: 80%;
+.cart-container input[type="number"],
+.cart-container textarea {
+  width: 100%;
+  max-width: 500px; /* Optional: Controls the width of the input fields */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -155,6 +167,8 @@ nav ul li a:hover {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+  width: 100%;
+  max-width: 500px; /* Ensures the button is the same width as the inputs */
 }
 
 .cart-container button:hover {
@@ -165,6 +179,7 @@ nav ul li a:hover {
 @media (max-width: 480px) {
   .cart-container {
     padding: 15px;
+    width: 100%;
   }
 
   .cart-container h2 {
@@ -172,8 +187,11 @@ nav ul li a:hover {
   }
 
   .cart-container input[type="text"],
-  .cart-container input[type="number"] {
+  .cart-container input[type="number"],
+  .cart-container textarea,
+  .cart-container button {
     width: 100%;
+    max-width: none;
   }
 }
 
@@ -240,36 +258,12 @@ footer p {
   .product-item {
     width: 100%;
   }
-}
 
-/* Navbar */
+  .cart-container {
+    padding: 15px;
+  }
 
-nav{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #1f2d2d;
-  padding: 20px 50px;
-}
-
-#navbar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#navbar li{
-  list-style: none;
-  padding: 0 20px;
-  position: relative;
-}
-
-#navbar li a{
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: white;
-}
-
-#navbar li a:hover{
-  color: #669999
+  .cart-container h2 {
+    font-size: 1.5rem;
+  }
 }
