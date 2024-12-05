@@ -1,16 +1,21 @@
-// src/components/ProductList.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
 import products from '../Products';
 
 const ProductList = () => {
   return (
-    <div>
+    <div className="items">
       <h2>Product List</h2>
       <ul>
         {products.map(product => (
-          <li key={product.id}>
-            <Link to={`/product/${product.id}`}>{product.name}</Link> - ${product.price}
+          <li key={product.id} className="product-box">
+            <h3 className="product-name">{product.name}</h3>
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              className="product-image"
+            />
+            <p className="product-price">${product.price}</p>
+            <p className="product-description">{product.description}</p>
           </li>
         ))}
       </ul>
@@ -19,6 +24,3 @@ const ProductList = () => {
 };
 
 export default ProductList;
-
-
-
