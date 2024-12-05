@@ -9,9 +9,9 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />  {/* Root route for App */}
+        <Route path="/" element={<Login />} />  {/* Root route for App */}
         <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<App />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<h2>404 - Page Not Found</h2>} />
       </Routes>
