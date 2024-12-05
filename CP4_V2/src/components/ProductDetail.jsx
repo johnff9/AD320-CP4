@@ -1,22 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import Products from Products;
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
 const ProductDetail = () => {
-    const { id } = useParams();
-    const product = Products.find(p => p.id === parseInt(id));
-    const { addToCart } = useContext(CartContext);
-  
-    if (!product) return <h2>Product Not Found</h2>;
-  
-    return (
-      <div>
-        <h2>{product.name}</h2>
-        <p>{product.description}</p>
-        <p>Price: ${product.price}</p>
-        <button onClick={() => addToCart(product)}>Add to Cart</button>
-      </div>
-    );
-  };
+  const { id } = useParams(); // Get the product ID from the URL
+
+  return (
+    <div>
+      <h2>Product Detail</h2>
+      <p>Details of Product {id} will go here.</p>
+    </div>
+  );
+};
 
 export default ProductDetail;
