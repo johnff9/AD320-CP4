@@ -2,89 +2,124 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 
 const Cart = ({ cart, removeFromCart }) => {
-  const [cartItems, setCartItems] = useState([]);
-
-  // Load cart items from localStorage
-  useEffect(() => {
-    const savedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    setCartItems(savedCartItems);
-  }, []);
-
-  useEffect(() => {
-    const savedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    setCartItems(savedCartItems);
-  }, []);
-  
-  
   const [removeQuantity, setRemoveQuantity] = useState({}); // Store quantity per item
-  const [validationMessage, setValidationMessage] = useState(""); // Store validation message
+  const [validationMessages, setValidationMessages] = useState({}); // Store validation messages per item
+
+  // Load cart items from localStorage on mount
+  useEffect(() => {
+    const savedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    if (savedCartItems.length === 0) {
+      // If no items in localStorage, set cart as empty
+      setValidationMessages((prev) => ({
+        ...prev,
+        emptyCart: "Your cart is empty."
+      }));
+    }
+  }, []);
 
   // Handle quantity input change
-  const handleQuantityChange = (e, itemId, availableQuantity) => {
+  const handleQuantityChange = (e, itemId, maxQuantity) => {
     const value = e.target.value;
-    
-    if (value && (isNaN(value) || value <= 0 || !Number.isInteger(Number(value)))) {
-      setValidationMessage("Please enter a valid positive integer.");
-    } else if (value > availableQuantity) {
-      // Display validation message if quantity is greater than available
-      setValidationMessage(`You cannot remove more than ${availableQuantity} ${availableQuantity === 1 ? "item" : "items"}.`);
-    } else {
-      // Clear validation message if input is valid
-      setValidationMessage("");
-    }
+    const parsedValue = parseInt(value, 10);
 
-    // Update quantity for specific item
+    // Update removeQuantity state
     setRemoveQuantity((prev) => ({
       ...prev,
-      [itemId]: value,
+      [itemId]: value === "" ? "" : parsedValue, // Set as empty string if input is empty
+    }));
+
+    // Validate if input is a valid positive integer
+    if (value !== "" && (isNaN(parsedValue) || parsedValue <= 0)) {
+      setValidationMessages((prev) => ({
+        ...prev,
+        [itemId]: "Please enter a valid positive integer.",
+      }));
+    } else if (parsedValue > maxQuantity) {
+      setValidationMessages((prev) => ({
+        ...prev,
+        [itemId]: `You cannot remove more than ${maxQuantity} items.`,
+      }));
+    } else {
+      setValidationMessages((prev) => ({
+        ...prev,
+        [itemId]: "", // Clear validation if input is valid
+      }));
+    }
+  };
+
+  // Handle item removal
+  const handleRemoveItem = (itemId, availableQuantity) => {
+    const quantityToRemove = removeQuantity[itemId] || 1; // Default to 1 if not specified
+
+    // Validate the quantity before removing
+    if (isNaN(quantityToRemove) || quantityToRemove <= 0) {
+      setValidationMessages((prev) => ({
+        ...prev,
+        [itemId]: "Please enter a valid positive integer.",
+      }));
+      return;
+    }
+
+    if (quantityToRemove > availableQuantity) {
+      setValidationMessages((prev) => ({
+        ...prev,
+        [itemId]: `You cannot remove more than ${availableQuantity} items.`,
+      }));
+      return;
+    }
+
+    // Clear any validation message and proceed to remove
+    setValidationMessages((prev) => ({
+      ...prev,
+      [itemId]: "",
+    }));
+    removeFromCart(itemId, quantityToRemove); // Call parent function
+
+    // Reset quantity input to empty after removal
+    setRemoveQuantity((prev) => ({
+      ...prev,
+      [itemId]: "",
     }));
   };
 
-  // Handle removal logic
-  const handleRemoveItem = (itemId, availableQuantity) => {
-    const quantityToRemove = removeQuantity[itemId] || 1; // Default to 1 if no quantity specified
-
-    if (validationMessage) {
-      return; // Don't proceed if there is a validation error
-    }
-
-    // Check if entered quantity exceeds available quantity
-    if (quantityToRemove > availableQuantity) {
-      setValidationMessage(`You cannot remove more than ${availableQuantity} ${availableQuantity === 1 ? "item" : "items"}.`);
-    } else {
-      setValidationMessage(""); // Clear validation message
-      removeFromCart(itemId, quantityToRemove);
-    }
-  };
-
   return (
-    <div>
-      <h2>Cart</h2>
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+    <div className="cart-container">
+      <h2 className="cart-header">Your Cart</h2>
+      {cart.length === 0 ? (
+        <p className="empty-cart-message">Your cart is empty.</p> // Display message if cart is empty
       ) : (
-        <ul>
-          {cartItems.map((item) => (
-            <li key={item.id}>
-              <img src={item.image} alt={item.name} />
-              <p>{item.name}</p>
-              <p>Price: ${item.price}</p>
-              <p>Quantity: {item.quantity}</p>
+        <ul className="cart-item-list">
+          {cart.map((item) => (
+            <li key={item.id} className="cart-item">
+              <img src={item.image} alt={item.name} className="cart-item-image" />
+              <div className="cart-item-details">
+                <p className="cart-item-name">{item.name}</p>
+                <p className="cart-item-price">Price: ${item.price}</p>
+                <p className="cart-item-quantity">Quantity: {item.quantity}</p>
+              </div>
 
-              {/* Input for specifying quantity to remove */}
-              <input
-                type="number"
-                value={removeQuantity[item.id] || 1} // Use stored value for each item
-                onChange={(e) => handleQuantityChange(e, item.id, item.quantity)}
-                min="1"
-                max={item.quantity}
-              />
-              <button onClick={() => handleRemoveItem(item.id, item.quantity)}>
-                Remove {removeQuantity[item.id] || 1} {removeQuantity[item.id] > 1 ? "items" : "item"}
-              </button>
 
-              {/* Display validation message if quantity exceeds cart item quantity */}
-              {validationMessage && <p className="validation-error">{validationMessage}</p>}
+              {/* Container for quantity input and Remove button */}
+              <div className="cart-item-actions">
+                <input
+                  type="number"
+                  value={removeQuantity[item.id] || ""}
+                  onChange={(e) => handleQuantityChange(e, item.id, item.quantity)}
+                  min="1"
+                  max={item.quantity}
+                  placeholder="Quantity"
+                  className="cart-item-quantity-input"
+                />
+                <button
+                  onClick={() => handleRemoveItem(item.id, item.quantity)}
+                  className="cart-item-remove-button"
+                >
+                  Remove
+                </button>
+              </div>
+                  <p className="cart-item-validation-error">
+                  {validationMessages[item.id]}
+                </p>
             </li>
           ))}
         </ul>
@@ -106,4 +141,5 @@ Cart.propTypes = {
   ).isRequired,
   removeFromCart: PropTypes.func.isRequired,
 };
+
 export default Cart;

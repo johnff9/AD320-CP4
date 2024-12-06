@@ -87,5 +87,4 @@ ProductList.propTypes = {
   ).isRequired,
 };
 
-
 export default ProductList;
