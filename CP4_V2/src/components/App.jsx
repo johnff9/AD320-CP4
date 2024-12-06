@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Routes, Route, useLocation } from 'react-router-dom';
 import ProductList from "./ProductList";
-import NavBar from "./AdminNavBar";
+import AdminNavBar from './AdminNavBar'; 
 import Cart from "./Cart";
 import productItems from "../ProductItems";
 import Login from './Login';

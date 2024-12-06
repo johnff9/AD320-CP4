@@ -5,7 +5,7 @@ import "../css/styles.css";
 export default function NavBar() {
   return (
     <nav>
-      <NavLink href="index.html">
+      <NavLink to="/"> {/* Changed href to to for React Router */}
         <svg
           id="logo-37"
           width="42"
@@ -76,7 +76,7 @@ export default function NavBar() {
             to="/"
             className={({ isActive }) => (isActive ? "active" : "")}
           >
-            Login
+            Logout
           </NavLink>
         </li>
         <li>
@@ -98,4 +98,4 @@ export default function NavBar() {
       </ul>
     </nav>
   );
-};
+}
