@@ -119,9 +119,7 @@ nav {
   width: 80%;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f5f5f5;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .cart-header {
@@ -204,7 +202,7 @@ nav {
 }
 
 .cart-item-quantity-input {
-  width: 80px;
+  width: 100px;
   padding: 8px;
   font-size: 1rem;
   border-radius: 5px;
