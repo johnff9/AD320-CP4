@@ -76,6 +76,16 @@ const ProductList = ({ addToCart }) => {
 ProductList.propTypes = {
   addToCart: PropTypes.func.isRequired,
   loadSampleProducts: PropTypes.func
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      image: PropTypes.string,
+      name: PropTypes.string,
+      price: PropTypes.number,
+      description: PropTypes.string,
+    })
+  ).isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default ProductList;
