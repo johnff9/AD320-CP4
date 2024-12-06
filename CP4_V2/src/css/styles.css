@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Baloo Bhai 2', cursive; /* Ensure this font is applied globally */
-  background-color: #f4f4f4;
+  background-color: #c3c5c4;
   margin: 0;
   padding: 0;
 }
@@ -266,4 +266,49 @@ footer p {
   .cart-container h2 {
     font-size: 1.5rem;
   }
+}
+
+.signup {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-items: right;
+  height: 85vh;
+}
+
+
+.login {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(9, 206, 117, 0.1);
+  text-align: center;
+  max-width: 350px;
+  width: 100%;
+  border: 1px black;
+  height: 550px;
+  width: 450px;
+}
+
+/* Heading styles */
+.login h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Button styles */
+.login button {
+  background-color: #4caf50;
+  color: white;
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login button:hover {
+  background-color: #45a049;
 }

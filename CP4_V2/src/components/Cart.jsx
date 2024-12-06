@@ -10,10 +10,11 @@ const Cart = ({ cart, removeFromCart }) => {
     setCartItems(savedCartItems);
   }, []);
 
-  // Save cart items to localStorage whenever the cart changes
   useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  }, [cartItems]);
+    const savedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    setCartItems(savedCartItems);
+  }, []);
+  
   
   const [removeQuantity, setRemoveQuantity] = useState({}); // Store quantity per item
   const [validationMessage, setValidationMessage] = useState(""); // Store validation message

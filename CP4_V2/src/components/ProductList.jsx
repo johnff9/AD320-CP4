@@ -7,6 +7,7 @@ import Products from "../ProductItems";
 const ProductList = ({ addToCart }) => {
   const [products, setProducts] = useState([]);  // State to store products
 
+
   useEffect(() => {
     // Fetch products from Firebase Realtime Database
     const fetchProducts = async () => {
@@ -48,7 +49,7 @@ const ProductList = ({ addToCart }) => {
         );
     };
 
-    loadSampleProducts();  // Call the fetch function on mount
+    // loadSampleProducts();  // Call the fetch function on mount
   }, []);
 
   return (
@@ -73,19 +74,18 @@ const ProductList = ({ addToCart }) => {
   );
 };
 
+
 ProductList.propTypes = {
-  addToCart: PropTypes.func.isRequired,
-  loadSampleProducts: PropTypes.func
   products: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number,
-      image: PropTypes.string,
-      name: PropTypes.string,
-      price: PropTypes.number,
-      description: PropTypes.string,
+      id: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      description: PropTypes.string.isRequired,
     })
   ).isRequired,
-  addToCart: PropTypes.func.isRequired,
 };
+
 
 export default ProductList;
