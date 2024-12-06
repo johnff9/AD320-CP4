@@ -4,12 +4,14 @@ import ProductList from "./ProductList";
 import NavBar from "./NavBar";
 import Cart from "./Cart";
 import productItems from "../ProductItems";
-import Login from "./Login";
-import Home from "./Home";
-import AdminTools from "./AdminTools";
+import Login from './Login';
+import AdminTools from './AdminTools';
+import Signup from "./Signup";
 
 const App = () => {
-  const [cartItems, setCartItems] = useState([]); // Maintain cart state
+  const [cart, setCart] = useState([]); 
+  const [cartItems, setCartItems] = useState([]);
+
 
   // Initialize cart from localStorage on app load
   useEffect(() => {
@@ -26,20 +28,20 @@ const App = () => {
       if (existingItemIndex > -1) {
         // If product exists in the cart, update its quantity
         updatedCart = [...prevCart];
-        updatedCart[existingItemIndex].quantity += 1; // Increment quantity by 1
+        updatedCart[existingItemIndex].quantity += 1; 
       } else {
-        // If product doesn't exist, add it with a quantity of 1
         updatedCart = [...prevCart, { ...product, quantity: 1 }];
       }
 
-      localStorage.setItem("cartItems", JSON.stringify(updatedCart)); // Save to local storage
+  
+      localStorage.setItem('cartItems', JSON.stringify(updatedCart));
       return updatedCart;
     });
   };
 
-  // Function to remove items from the cart
-  const removeFromCart = (itemId, quantity) => {
-    setCartItems((prevCart) => {
+
+  const removeFromCart = (itemId, quantity = 1) => {
+    setCart((prevCart) => {
       const updatedCart = prevCart
         .map((item) => {
           if (item.id === itemId) {
@@ -68,6 +70,7 @@ const App = () => {
 
   // Hide NavBar if the user is on the login page
   const shouldShowNavBar = location.pathname !== "/";
+
 
   return (
     <>
