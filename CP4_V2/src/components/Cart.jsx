@@ -1,18 +1,38 @@
-import React from 'react';
-import PropTypes from "prop-types";
-import AddItemForm from "./AddItemForm";
+import React, { useState, useEffect } from 'react';
 
-const Cart = ({addItem}) => {
+const Cart = () => {
+  const [cartItems, setCartItems] = useState([]);
+
+  // Load cart items from localStorage
+  useEffect(() => {
+    const savedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    setCartItems(savedCartItems);
+  }, []);
+
+  // Save cart items to localStorage whenever the cart changes
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }, [cartItems]);
+
   return (
     <div>
       <h2>Cart</h2>
-      <AddItemForm addItem={addItem} />
+      {cartItems.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <ul>
+          {cartItems.map((item, index) => (
+            <li key={index}>
+              <img src={item.image} alt={item.name} />
+              <h3>{item.name}</h3>
+              <p>${item.price.toFixed(2)}</p>
+              <p>{item.description}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
-};
-
-Cart.propTypes = {
-  addItem: PropTypes.func,
 };
 
 export default Cart;
