@@ -116,82 +116,155 @@ nav {
 
 /* Cart Container */
 .cart-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centers the form horizontally */
-  justify-content: center; /* Centers the form vertically */
-  max-width: 600px; /* Optional: Limits the maximum width of the container */
-  width: 90%; /* Adjusts the container width responsively */
-  padding: 20px; /* Adds padding around the form */
-  border: 2px solid #FF6F61; /* Candy-themed border color */
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
   border-radius: 8px;
-  background-color: #fffbea; /* Soft candy-like background */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-header {
   text-align: center;
-  margin: 50px auto; /* Centers the form horizontally with margin on top and bottom */
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-/* Heading */
-.cart-container h2 {
-  font-family: 'Baloo Bhai 2', cursive;
-  font-size: 1.8rem;
-  color: #FF6F61;
-  margin-bottom: 15px;
+/* Empty Cart Message */
+.empty-cart-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #777;
 }
 
-/* Add Item Form Section */
-.cart-container form {
+/* Cart Item List */
+.cart-item-list {
+  list-style: none;
+  padding: 0;
+}
+
+.cart-item {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.cart-container input[type="text"],
-.cart-container input[type="number"],
-.cart-container textarea {
-  width: 100%;
-  max-width: 500px; /* Optional: Controls the width of the input fields */
-  padding: 10px;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items at the start vertically */
+  padding: 15px;
+  margin-bottom: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  min-height: 150px; /* Increased height for more space */
 }
 
-.cart-container button {
+.cart-item:hover {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Cart Item Image */
+.cart-item-image {
+  max-width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  background-color: #f1f1f1;
+  margin-right: 20px;
+}
+
+/* Cart Item Details */
+.cart-item-details {
+  flex-grow: 1;
+}
+
+.cart-item-name {
+  font-weight: bold;
+  color: #FF6F61;
+  font-size: 1.2rem;
+}
+
+.cart-item-price {
+  font-size: 1rem;
+  color: #666;
+}
+
+.cart-item-quantity {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Cart Item Actions (Quantity Input and Remove Button) */
+.cart-item-actions {
+  display: flex;
+  flex-direction: column; /* Stack input and button vertically */
+  align-items: center;
+  justify-content: space-between; /* Space elements vertically */
+  width: 110%; /* Take full width */
+}
+
+.cart-item-quantity-input {
+  width: 100px;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px; /* Space between input and button */
+  text-align: center;
+  transition: border 0.3s ease;
+}
+
+.cart-item-quantity-input:focus {
+  outline: none;
+  border-color: #FF6F61;
+}
+
+.cart-item-remove-button {
+  padding: 8px 16px;
   background-color: #FF6F61;
   color: white;
-  padding: 10px 20px;
   font-size: 1rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-  width: 100%;
-  max-width: 500px; /* Ensures the button is the same width as the inputs */
+  transition: background-color 0.3s ease;
 }
 
-.cart-container button:hover {
-  background-color: #e0554d;
+.cart-item-remove-button:hover {
+  background-color: #ff4d3d;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 480px) {
-  .cart-container {
-    padding: 15px;
+/* Validation Error Message */
+.cart-item-validation-error {
+  display: flex;
+  justify-content: right;
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 10px; /* Space between the remove button and validation message */
+  text-align: center;
+  font-style: italic;
+  width: 50%; /* Ensure it takes full width under the button */
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-item-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start; /* Stack vertically and start from top */
     width: 100%;
   }
 
-  .cart-container h2 {
-    font-size: 1.5rem;
+  .cart-item-quantity-input {
+    width: 100%;
+    margin-bottom: 10px;
   }
 
-  .cart-container input[type="text"],
-  .cart-container input[type="number"],
-  .cart-container textarea,
-  .cart-container button {
+  .cart-item-remove-button {
     width: 100%;
-    max-width: none;
   }
 }
 
@@ -232,6 +305,7 @@ footer {
 footer p {
   font-size: 1rem;
 }
+
 
 /* Media Queries (Responsive) */
 @media (max-width: 768px) {
