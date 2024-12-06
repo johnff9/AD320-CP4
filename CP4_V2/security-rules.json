@@ -1,12 +1,7 @@
 {
-    "rules": {
-      ".write": "!data.exists()",
-      ".read": true,
-      "$room": {
-        ".write":
-          "auth != null && (!data.exists() || data.child('admin').val() === auth.uid)",
-        ".read": true
-      }
-    }
+  "rules": {
+    ".read": "true",
+    ".write": "true"
   }
   
+}

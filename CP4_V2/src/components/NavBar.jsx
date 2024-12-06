@@ -8,8 +8,8 @@ export default function NavBar() {
       <NavLink to="/"> {/* Changed href to to for React Router */}
         <svg
           id="logo-37"
-          width="42"
-          height="38"
+          width="40"
+          height="40"
           viewBox="0 0 42 38"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

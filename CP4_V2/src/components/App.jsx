@@ -5,11 +5,11 @@ import NavBar from './NavBar';
 import Cart from "./Cart";
 import productItems from "../ProductItems";
 import Login from './Login';
-import Home from './Home';
 import AdminTools from './AdminTools';
+import Signup from "./Signup";
 
 const App = () => {
-  const [cart, setCart] = useState([]); // Maintain cart state
+  const [cart, setCart] = useState([]); 
   const [cartItems, setCartItems] = useState([]);
 
 
@@ -21,19 +21,18 @@ const App = () => {
       if (existingItemIndex > -1) {
         // If product exists in the cart, update its quantity
         updatedCart = [...prevCart];
-        updatedCart[existingItemIndex].quantity += 1; // Increment quantity by 1
+        updatedCart[existingItemIndex].quantity += 1; 
       } else {
-        // If product doesn't exist, add it with a quantity of 1
         updatedCart = [...prevCart, { ...product, quantity: 1 }];
       }
   
-      localStorage.setItem('cartItems', JSON.stringify(updatedCart)); // Save to local storage
+      localStorage.setItem('cartItems', JSON.stringify(updatedCart));
       return updatedCart;
     });
   };
   
 
-  // Function to remove an item from the cart
+
   const removeFromCart = (itemId, quantity = 1) => {
     setCart((prevCart) => {
       const updatedCart = prevCart
@@ -63,6 +62,7 @@ return (
     <div className="pages">
       <Routes>
         <Route path="/" element={<Login />} /> {/* Root route */}
+        <Route path="/signup" element={<Signup />} />
         <Route path="/home/*" element={<ProductList products={productItems} addToCart={addToCart} />} /> {/* Home route */}
         <Route path="/cart" element={<Cart cart={cart} removeFromCart={removeFromCart} />} /> {/* Cart route */}
         <Route path="/admin" element={<AdminTools />} /> {/* Admin route */}

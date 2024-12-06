@@ -269,46 +269,100 @@ footer p {
 }
 
 .signup {
+  background-image: url("../assets/background.jpg");
+  height: 70%;
   display: flex;
-  flex-direction: column-reverse;
   align-items: center;
-  justify-items: right;
-  height: 85vh;
+  justify-content: center;
+  height: 100vh;
 }
-
 
 .login {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(9, 206, 117, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  max-width: 350px;
+  max-width: 400px;
   width: 100%;
-  border: 1px black;
-  height: 550px;
-  width: 450px;
 }
 
-/* Heading styles */
 .login h2 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: #333;
   margin-bottom: 1rem;
 }
 
-/* Button styles */
-.login button {
-  background-color: #4caf50;
-  color: white;
+.login input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
   font-size: 1rem;
-  padding: 0.5rem 1.5rem;
+}
+
+.login button {
+  font-size: 1rem;
+  padding: 10px 15px;
   border: none;
   border-radius: 5px;
+  width: 100%;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
+}
+
+.login button[type="submit"] {
+  background-color: #5865f2;
+  color: #fff;
+  font-weight: bold;
 }
 
 .login button:hover {
-  background-color: #45a049;
+  background-color: #4752c4;
 }
+
+.googleSvg {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.google-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.google-login:hover {
+  background-color: #f1f1f1;
+}
+
+.options {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #5865f2;
+}
+
+.options a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.options a:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  color: #777;
+}
+
