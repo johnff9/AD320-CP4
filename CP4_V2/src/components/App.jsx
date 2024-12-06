@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Routes, Route, useLocation } from 'react-router-dom';
 import ProductList from "./ProductList";
-import AdminNavBar from './AdminNavBar'; 
+import NavBar from './NavBar'; 
 import Cart from "./Cart";
 import productItems from "../ProductItems";
 import Login from './Login';
@@ -10,23 +10,28 @@ import AdminTools from './AdminTools';
 
 const App = () => {
   const [cart, setCart] = useState([]); // Maintain cart state
+  const [cartItems, setCartItems] = useState([]);
 
-  // Function to add items to the cart with a specified quantity
-  const addToCart = (item, quantity) => {
-    setCart((prevCart) => {
-      const itemIndex = prevCart.findIndex((cartItem) => cartItem.id === item.id);
 
-      if (itemIndex > -1) {
-        // If item exists, increase its quantity by the specified amount
-        const updatedCart = [...prevCart];
-        updatedCart[itemIndex].quantity += Number(quantity); // Add specified quantity
-        return updatedCart;
+  const addToCart = (product) => {
+    setCartItems((prevCart) => {
+      const existingItemIndex = prevCart.findIndex((item) => item.id === product.id);
+  
+      let updatedCart;
+      if (existingItemIndex > -1) {
+        // If product exists in the cart, update its quantity
+        updatedCart = [...prevCart];
+        updatedCart[existingItemIndex].quantity += 1; // Increment quantity by 1
       } else {
-        // If item doesn't exist, add it to the cart with the specified quantity
-        return [...prevCart, { ...item, quantity: Number(quantity) }];
+        // If product doesn't exist, add it with a quantity of 1
+        updatedCart = [...prevCart, { ...product, quantity: 1 }];
       }
+  
+      localStorage.setItem('cartItems', JSON.stringify(updatedCart)); // Save to local storage
+      return updatedCart;
     });
   };
+  
 
   // Function to remove an item from the cart
   const removeFromCart = (itemId, quantity = 1) => {
@@ -49,12 +54,12 @@ const App = () => {
 
 const location = useLocation();
 
-// Hide AdminNavBar if the user is on the login page
+// Hide NavBar if the user is on the login page
 const shouldShowNavBar = location.pathname !== '/';
 
 return (
   <>
-    {shouldShowNavBar && <AdminNavBar />} {/* Conditionally render the NavBar */}
+    {shouldShowNavBar && <NavBar />} {/* Conditionally render the NavBar */}
     <div className="pages">
       <Routes>
         <Route path="/" element={<Login />} /> {/* Root route */}
