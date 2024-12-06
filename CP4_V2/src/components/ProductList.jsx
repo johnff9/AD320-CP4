@@ -1,26 +1,32 @@
-import React from 'react';
-import products from '../Products';
+import React from "react";
+import PropTypes from "prop-types";
+import Products from "./Products";
 
-const ProductList = () => {
+const ProductList = ({ products, addToCart }) => {
   return (
-    <div className="items">
-      <h2>Product List</h2>
-      <ul>
-        {products.map(product => (
-          <li key={product.id} className="product-box">
-            <h3 className="product-name">{product.name}</h3>
-            <img 
-              src={product.image} 
-              alt={product.name} 
-              className="product-image"
-            />
-            <p className="product-price">${product.price}</p>
-            <p className="product-description">{product.description}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className="product-list">
+      {products.map((product) => (
+        <Products
+          key={product.id}
+          details={product}
+          addToCart={addToCart} // Pass addToCart as prop
+        />
+      ))}
+    </ul>
   );
+};
+
+ProductList.propTypes = {
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      image: PropTypes.string,
+      name: PropTypes.string,
+      price: PropTypes.number,
+      description: PropTypes.string,
+    })
+  ).isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default ProductList;
