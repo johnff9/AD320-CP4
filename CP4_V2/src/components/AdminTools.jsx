@@ -4,21 +4,20 @@ import { ref, push } from "firebase/database";
 import AddItemForm from "./AddItemForm";
 
 const AdminTools = () => {
-  const addItem = (item) => {
-    // Add item to Firebase
-    const itemsRef = ref(database, "products");
-    push(itemsRef, item);
+  const addItem = async (item) => {
+    try {
+      const itemsRef = ref(database, "products");
+      await push(itemsRef, item);
 
-    // Add item to LocalStorage
-    const savedProducts = JSON.parse(localStorage.getItem("products")) || [];
-    savedProducts.push(item);
-    localStorage.setItem("products", JSON.stringify(savedProducts));
-
-    alert("Item added successfully!");
+      alert("Item added successfully!");
+    } catch (error) {
+      console.error("Error adding item:", error);
+      alert("Failed to add item. Please try again.");
+    }
   };
 
   return (
-    <div>
+    <div className="admin-tools-container">
       <div className="page-header">Admin Tools</div>
       <AddItemForm addItem={addItem} />
     </div>
