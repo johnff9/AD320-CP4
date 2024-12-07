@@ -151,6 +151,17 @@ nav {
 }
 
 /* Cart Item List */
+.cart-container{
+  text-align: center; /* Center align the content inside the container */
+}
+
+.empty-cart-message {
+  font-size: 2rem;
+  color: #555; /* Optional: Style for better visibility */
+}
+
+
+/* Cart Item List */
 .cart-item-list {
   display: flex;
   flex-direction: column; /* Stack cart items vertically */
@@ -190,12 +201,14 @@ nav {
   object-fit: cover;
   border-radius: 8px;
   background-color: #f1f1f1;
-  margin-right: 20px;
+  margin-right: 30px;
+
 }
 
 /* Cart Item Details */
 .cart-item-details {
   flex-grow: 1;
+  width: 60%;
 }
 
 .cart-item-name {
@@ -220,7 +233,7 @@ nav {
   flex-direction: column; /* Stack input and button vertically */
   align-items: center;
   justify-content: space-between; /* Space elements vertically */
-  width: 110%; /* Take full width */
+  width: 100%; /* Take full width */
 }
 
 .cart-item-quantity-input {
@@ -461,4 +474,80 @@ footer p {
   margin-top: 20px;
   font-size: 0.8rem;
   color: #777;
+}
+
+/* Admin Tools Page Styling */
+.admin-tools-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f8f9fa; /* Light background similar to login page */
+  padding: 2rem;
+  box-sizing: border-box; /* Include padding in the height calculation */
+}
+
+.admin-tools-container h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333; /* Match the color from the login page */
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.add-item-form {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box; /* Ensure padding doesn't break width */
+  margin: auto; /* Center horizontally within parent container */
+}
+
+/* Ensure inputs, textarea, and buttons fill the form */
+.add-item-form input,
+.add-item-form textarea,
+.add-item-form button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.add-item-form button {
+  background-color: #5865f2;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-item-form button:hover {
+  background-color: #4752c4;
+}
+
+.add-item-form textarea {
+  resize: both;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .add-item-form {
+    padding: 1.5rem;
+  }
+
+  .admin-tools-container h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-tools-container h2 {
+    font-size: 1.5rem;
+  }
 }

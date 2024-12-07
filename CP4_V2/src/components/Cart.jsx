@@ -17,17 +17,16 @@ const Cart = ({ cart, removeFromCart }) => {
     }
   }, []);
 
-  // Handle quantity input change
   const handleQuantityChange = useCallback((e, itemId, maxQuantity) => {
     const value = e.target.value;
     const parsedValue = parseInt(value, 10);
-
+  
     // Update removeQuantity state
     setRemoveQuantity((prev) => ({
       ...prev,
       [itemId]: value === "" ? "" : parsedValue, // Set as empty string if input is empty
     }));
-
+  
     // Validate if input is a valid positive integer
     if (value !== "" && (isNaN(parsedValue) || parsedValue <= 0)) {
       setValidationMessages((prev) => ({
@@ -37,7 +36,7 @@ const Cart = ({ cart, removeFromCart }) => {
     } else if (parsedValue > maxQuantity) {
       setValidationMessages((prev) => ({
         ...prev,
-        [itemId]: `You cannot remove more than ${maxQuantity} items.`,
+        [itemId]: `You cannot remove more than ${maxQuantity} ${maxQuantity === 1 ? 'item' : 'items'}.`,
       }));
     } else {
       setValidationMessages((prev) => ({
@@ -46,11 +45,10 @@ const Cart = ({ cart, removeFromCart }) => {
       }));
     }
   }, []);
-
-  // Handle item removal
+  
   const handleRemoveItem = useCallback((itemId, availableQuantity) => {
     const quantityToRemove = removeQuantity[itemId] || 1; // Default to 1 if not specified
-
+  
     // Validate the quantity before removing
     if (isNaN(quantityToRemove) || quantityToRemove <= 0) {
       setValidationMessages((prev) => ({
@@ -59,22 +57,22 @@ const Cart = ({ cart, removeFromCart }) => {
       }));
       return;
     }
-
+  
     if (quantityToRemove > availableQuantity) {
       setValidationMessages((prev) => ({
         ...prev,
-        [itemId]: `You cannot remove more than ${availableQuantity} items.`,
+        [itemId]: `You cannot remove more than ${availableQuantity} ${availableQuantity === 1 ? 'item' : 'items'}.`,
       }));
       return;
     }
-
+  
     // Clear any validation message and proceed to remove
     setValidationMessages((prev) => ({
       ...prev,
       [itemId]: "",
     }));
     removeFromCart(itemId, quantityToRemove); // Call parent function
-
+  
     // Reset quantity input to empty after removal
     setRemoveQuantity((prev) => ({
       ...prev,
@@ -92,7 +90,9 @@ const Cart = ({ cart, removeFromCart }) => {
     <div className="cart-container">
       <div className="page-header">Your Cart</div>
       {cart.length === 0 ? (
-        <p className="empty-cart-message">Your cart is empty.</p> // Display message if cart is empty
+        <div className="empty-cart-message-container">
+          <p className="empty-cart-message">Your cart is empty.</p>
+        </div>
       ) : (
         <ul className="cart-item-list">
           {cart.map((item) => (
@@ -104,7 +104,6 @@ const Cart = ({ cart, removeFromCart }) => {
                 <p className="cart-item-quantity">Quantity: {item.quantity}</p>
               </div>
 
-              {/* Container for quantity input and Remove button */}
               <div className="cart-item-actions">
                 <input
                   type="number"

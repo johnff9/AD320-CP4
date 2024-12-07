@@ -19,7 +19,7 @@ const AdminTools = () => {
 
   return (
     <div>
-      <h2>Admin Tools</h2>
+      <div className="page-header">Admin Tools</div>
       <AddItemForm addItem={addItem} />
     </div>
   );
