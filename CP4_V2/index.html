@@ -9,10 +9,29 @@
     <!-- Google Font import -->
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;700&display=swap" rel="stylesheet">
 
+    <!-- Additional CSS for pop-up message -->
+    <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <!-- This is where React will render your app -->
     <div id="root"></div>
+
+    <!-- JavaScript for adding to cart and pop-up message -->
     <script type="module" src="/src/index.jsx"></script>
+    <script>
+      function addToCart() {
+        // Simulate adding an item to the cart
+        console.log('Item added to cart');
+        
+        // Show the popup message
+        const popup = document.getElementById('popup-message');
+        popup.style.display = 'block';
+        
+        // Hide the popup after 2 seconds
+        setTimeout(() => {
+          popup.style.display = 'none';
+        }, 2000);
+      }
+    </script>
   </body>
 </html>

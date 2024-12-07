@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from "prop-types";
 
 const Cart = ({ cart, removeFromCart }) => {
@@ -18,7 +18,7 @@ const Cart = ({ cart, removeFromCart }) => {
   }, []);
 
   // Handle quantity input change
-  const handleQuantityChange = (e, itemId, maxQuantity) => {
+  const handleQuantityChange = useCallback((e, itemId, maxQuantity) => {
     const value = e.target.value;
     const parsedValue = parseInt(value, 10);
 
@@ -45,10 +45,10 @@ const Cart = ({ cart, removeFromCart }) => {
         [itemId]: "", // Clear validation if input is valid
       }));
     }
-  };
+  }, []);
 
   // Handle item removal
-  const handleRemoveItem = (itemId, availableQuantity) => {
+  const handleRemoveItem = useCallback((itemId, availableQuantity) => {
     const quantityToRemove = removeQuantity[itemId] || 1; // Default to 1 if not specified
 
     // Validate the quantity before removing
@@ -80,11 +80,17 @@ const Cart = ({ cart, removeFromCart }) => {
       ...prev,
       [itemId]: "",
     }));
-  };
+  }, [removeFromCart, removeQuantity]);
+
+  const handleRemoveKeyDown = useCallback((event, itemId) => {
+    if (event.key === 'Enter') {
+      handleRemoveItem(itemId, 1); // Pass 1 for default removal if no quantity specified
+    }
+  }, [handleRemoveItem]);
 
   return (
     <div className="cart-container">
-      <h2 className="cart-header">Your Cart</h2>
+      <div className="page-header">Your Cart</div>
       {cart.length === 0 ? (
         <p className="empty-cart-message">Your cart is empty.</p> // Display message if cart is empty
       ) : (
@@ -97,7 +103,6 @@ const Cart = ({ cart, removeFromCart }) => {
                 <p className="cart-item-price">Price: ${item.price}</p>
                 <p className="cart-item-quantity">Quantity: {item.quantity}</p>
               </div>
-
 
               {/* Container for quantity input and Remove button */}
               <div className="cart-item-actions">
@@ -112,14 +117,15 @@ const Cart = ({ cart, removeFromCart }) => {
                 />
                 <button
                   onClick={() => handleRemoveItem(item.id, item.quantity)}
-                  className="cart-item-remove-button"
+                  onKeyDown={(event) => handleRemoveKeyDown(event, item.id)}
+                  className="cart-action-button"
                 >
                   Remove
                 </button>
               </div>
-                  <p className="cart-item-validation-error">
-                  {validationMessages[item.id]}
-                </p>
+              <p className="cart-item-validation-error">
+                {validationMessages[item.id]}
+              </p>
             </li>
           ))}
         </ul>
