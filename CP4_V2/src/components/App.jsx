@@ -105,13 +105,6 @@ const App = () => {
           <Route path="*" element={<h2>404 - Page Not Found</h2>} /> {/* Catch-all route */}
         </Routes>
       </div>
-
-      {/* Pop-up message logic */}
-      {showPopup && (
-        <div className="pop-up-message">
-          Item added to cart!
-        </div>
-      )}
     </>
   );
 };
