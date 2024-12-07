@@ -3,19 +3,19 @@ import PropTypes from "prop-types";
 
 const Products = ({ details, addToCart }) => {
   const { image, name, price, description } = details;
-  const [quantity, setQuantity] = useState(1); // Default quantity is set to 1
-  const [validationMessage, setValidationMessage] = useState(""); // Store validation message
+  const [quantity, setQuantity] = useState(1);
+  const [validationMessage, setValidationMessage] = useState("");
+  const [popUpMessage, setPopUpMessage] = useState(""); // State for pop-up message
+  const [showPopUp, setShowPopUp] = useState(false); // State for pop-up visibility
 
-  // Handle quantity input change
   const handleQuantityChange = (e) => {
     const value = e.target.value;
 
-    // Check if value is valid: either an empty string or a positive number
     if (value === "" || (value > 0 && !isNaN(value))) {
       setQuantity(value);
-      setValidationMessage(""); // Clear validation message if valid input
+      setValidationMessage("");
     } else {
-      setValidationMessage("Please enter a valid positive number."); // Set validation message if invalid
+      setValidationMessage("Please enter a valid positive number.");
     }
   };
 
@@ -23,8 +23,15 @@ const Products = ({ details, addToCart }) => {
     if (quantity <= 0 || isNaN(quantity)) {
       setValidationMessage("Quantity must be a positive number.");
     } else {
-      setValidationMessage(""); // Clear validation message if valid
-      addToCart(details, quantity); // Call addToCart with the quantity
+      setValidationMessage("");
+      addToCart(details, quantity);
+
+      // Show pop-up message
+      setPopUpMessage(`${details.name} added to cart!`);
+      setShowPopUp(true);
+
+      // Hide the pop-up after 2 seconds
+      setTimeout(() => setShowPopUp(false), 2000);
     }
   };
 
@@ -39,18 +46,19 @@ const Products = ({ details, addToCart }) => {
         <p>{description}</p>
       </span>
 
-      {/* Quantity input */}
       <input
         type="number"
-        value={quantity} // Show current quantity
+        value={quantity}
         onChange={handleQuantityChange}
-        min="1" // Min quantity is 1
+        min="1"
         placeholder="Enter quantity"
       />
       <button onClick={handleAddToCart}>Add to Cart</button>
 
-      {/* Display validation error if the input is invalid */}
       {validationMessage && <p className="validation-error">{validationMessage}</p>}
+
+      {/* Pop-up message */}
+      {showPopUp && <div className="pop-up-message">{popUpMessage}</div>}
     </li>
   );
 };
