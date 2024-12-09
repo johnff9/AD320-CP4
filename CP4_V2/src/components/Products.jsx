@@ -1,6 +1,20 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
+/**
+ * Products component displays product details and allows users to add products to the cart.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Object} props.details - The details of the product.
+ * @param {number} props.details.id - The unique identifier for the product.
+ * @param {string} props.details.image - The URL of the product image.
+ * @param {string} props.details.name - The name of the product.
+ * @param {number} props.details.price - The price of the product.
+ * @param {string} props.details.description - A brief description of the product.
+ * @param {Function} props.addToCart - The function to add the product to the cart.
+ * @returns {JSX.Element} The rendered Products component.
+ */
 const Products = ({ details, addToCart }) => {
   const { image, name, price, description } = details;
   const [quantity, setQuantity] = useState(1);
@@ -8,6 +22,11 @@ const Products = ({ details, addToCart }) => {
   const [popUpMessage, setPopUpMessage] = useState(""); // State for pop-up message
   const [showPopUp, setShowPopUp] = useState(false); // State for pop-up visibility
 
+  /**
+   * Handles changes to the quantity input field.
+   *
+   * @param {React.ChangeEvent<HTMLInputElement>} e - The event object from the input field.
+   */
   const handleQuantityChange = (e) => {
     const value = e.target.value;
 
@@ -19,6 +38,9 @@ const Products = ({ details, addToCart }) => {
     }
   };
 
+  /**
+   * Handles adding the product to the cart with the specified quantity.
+   */
   const handleAddToCart = () => {
     if (quantity <= 0 || isNaN(quantity)) {
       setValidationMessage("Quantity must be a positive number.");
@@ -64,13 +86,32 @@ const Products = ({ details, addToCart }) => {
 };
 
 Products.propTypes = {
+  /**
+   * The product details object.
+   */
   details: PropTypes.shape({
+    /** The unique identifier for the product. */
     id: PropTypes.number,
+
+    /** The URL of the product image. */
     image: PropTypes.string,
+
+    /** The name of the product. */
     name: PropTypes.string,
+
+    /** The price of the product. */
     price: PropTypes.number,
+
+    /** A brief description of the product. */
     description: PropTypes.string,
   }).isRequired,
+
+  /**
+   * Function to add the product to the cart.
+   *
+   * @param {Object} product - The product details.
+   * @param {number} quantity - The quantity to add to the cart.
+   */
   addToCart: PropTypes.func.isRequired,
 };
 

@@ -3,6 +3,13 @@ import { createUserWithEmailAndPassword, signInWithPopup, sendEmailVerification 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Signup component provides functionality for users to sign up with email/password
+ * or via Google authentication using Firebase.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered Signup component.
+ */
 const Signup = () => {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
@@ -11,13 +18,19 @@ const Signup = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Handle Google sign-up
+  /**
+   * Handles user signup via Google authentication.
+   * On success, the user is navigated to the home page.
+   *
+   * @async
+   * @function
+   */
   const handleGoogleSignup = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const { email, displayName, uid } = result.user;
-      
-      // After Google login, navigate to home page
+
+      // After Google login, navigate to the home page
       setUser(result.user);
       navigate("/home");
     } catch (error) {
@@ -26,7 +39,14 @@ const Signup = () => {
     }
   };
 
-  // Handle email/password sign-up
+  /**
+   * Handles user signup via email and password.
+   * Checks if the passwords match and sends an email verification upon success.
+   *
+   * @async
+   * @function
+   * @param {React.FormEvent<HTMLFormElement>} e - The form submit event.
+   */
   const handleSignup = async (e) => {
     e.preventDefault();
 
@@ -43,7 +63,7 @@ const Signup = () => {
       // Send email verification
       await sendEmailVerification(user);
 
-      // After signup, navigate to home
+      // After signup, navigate to the home page
       setUser(user);
       navigate("/home");
       console.log("Account created successfully, verification email sent.");

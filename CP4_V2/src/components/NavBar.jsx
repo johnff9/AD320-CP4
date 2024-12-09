@@ -2,6 +2,15 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "../css/styles.css";
 
+/**
+ * NavBar component providing navigation links for the application.
+ * 
+ * Utilizes `NavLink` from React Router for navigation and includes a logo as well as links 
+ * to various pages such as Home, Logout, Cart, and Admin Tools.
+ * 
+ * @component
+ * @returns {JSX.Element} The rendered navigation bar component.
+ */
 export default function NavBar() {
   return (
     <nav>

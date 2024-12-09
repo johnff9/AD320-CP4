@@ -6,6 +6,13 @@ import { getFirestore, doc, setDoc, addDoc, collection} from 'firebase/firestore
 import { NavLink } from "react-router-dom";
 
 
+/**
+ * Login component provides functionality for users to log in via Google authentication,
+ * log out, and add items to their cart in Firestore.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered Login component.
+ */
 const Login = () => {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
@@ -31,6 +38,13 @@ const Login = () => {
     }
   };
 
+  /**
+   * Handles user login via Google authentication.
+   * Upon success, the user's details are saved in Firestore, and the user is navigated to the home page.
+   *
+   * @async
+   * @function
+   */
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -40,7 +54,16 @@ const Login = () => {
     }
   };
 
-  // Function to add an item to the user's cart in Firestore
+  /**
+   * Adds an item to the user's cart in Firestore.
+   * If the cart doesn't exist, a new cart document is created.
+   *
+   * @async
+   * @function
+   * @param {Object} item - The item to add to the cart.
+   * @param {string} item.id - The unique identifier for the item.
+   * @param {string} item.name - The name of the item.
+   */
   const addToCart = async (item) => {
     if (!user) {
       console.error("User must be logged in to add items to cart");

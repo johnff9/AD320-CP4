@@ -1,18 +1,34 @@
+/**
+ * ProductList component renders a list of products fetched from Firebase 
+ * and allows users to add items to their cart.
+ * 
+ * @component
+ * 
+ * @param {Object} props - The component props.
+ * @param {Function} props.addToCart - Function to handle adding a product to the cart.
+ * 
+ * @returns {JSX.Element} The rendered ProductList component.
+ */
+
 import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
-import { database } from '../firebase';  // Import the Firebase configuration
-import { ref, get, set } from 'firebase/database';  // Import Firebase functions
+import { database } from '../firebase'; // Firebase configuration import
+import { ref, get } from 'firebase/database'; // Firebase database functions
 import Products from "../ProductItems";
 
 const ProductList = ({ addToCart }) => {
-  const [products, setProducts] = useState([]);  // State to store products
+  const [products, setProducts] = useState([]); // State for storing products
   const [popUpMessage, setPopUpMessage] = useState(""); // State for pop-up message
   const [showPopUp, setShowPopUp] = useState(false); // State for pop-up visibility
 
+  /**
+   * Fetches product data from the Firebase database on component mount.
+   * Stores the products in state if available.
+   */
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const productsRef = ref(database, 'products');  // Reference to 'products' node in Firebase
+        const productsRef = ref(database, 'products'); // Reference to 'products' in Firebase
         const snapshot = await get(productsRef);
 
         if (snapshot.exists()) {
@@ -33,6 +49,11 @@ const ProductList = ({ addToCart }) => {
     fetchProducts();
   }, []);
 
+  /**
+   * Handles adding a product to the cart and displays a temporary pop-up message.
+   * 
+   * @param {Object} product - The product to add to the cart.
+   */
   const handleAddToCart = (product) => {
     addToCart(product);
 
@@ -46,7 +67,7 @@ const ProductList = ({ addToCart }) => {
 
   return (
     <div className="items">
-    <div className="page-header">Product List</div>
+      <div className="page-header">Product List</div>
       {showPopUp && <div className="pop-up-message">{popUpMessage}</div>}
       <ul>
         {products.map(product => (
@@ -70,15 +91,10 @@ const ProductList = ({ addToCart }) => {
 };
 
 ProductList.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  /**
+   * Function to add a product to the cart.
+   */
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default ProductList;
